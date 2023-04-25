@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Client</title>
+    </head>
+    <body>
+        <h1>Client</h1>
+        <p id="status">Not responding...</p>
+        <video id="video" width="640" height="480" autoplay muted></video>
+        <dev id="whiteboard">
+        </dev>
+    </body>
+</html>
+
+<script>
+    function fetching() {
+        let URL = "http://127.0.0.1:8000/rtn";
+        let Method = "GET";
+        let Interval = 1;
+        var xhr = new XMLHttpRequest();
+        setInterval(() => {
+            xhr.open(Method, URL, true);
+            xhr.send();
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    document.getElementById("status").innerHTML = "Responding...";
+                    document.getElementById("whiteboard").innerHTML = xhr.responseText;
+                } else {
+                    document.getElementById("status").innerHTML = "Not responding...";
+                }
+            }
+        }, Interval);
+    }
+    window.onload = fetching();
+</script>
